@@ -10,7 +10,7 @@
   },
   "engines" : {
     "node" : "6.2.2"
-  }
+  },
   "author": "Ashok Dey",
   "license": "MIT",
   "dependencies": {
