@@ -15,6 +15,10 @@ let port = process.env.PORT || 3000;
 // the body-parser middleware
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/_public/index.html');
+})
+
 // create a GET /todos route
 app.get('/todos', authenticate, (req, res) => {
     
@@ -207,7 +211,7 @@ app.post('/users/login', (req, res) => {
 
 //logout route
 
-app.delete('/users/me/token', authenticate, (req, res) => {
+app.delete('/users/logout', authenticate, (req, res) => {
     req.user.removeToken(req.token).then(() => {
         res.status(200).send();
     }, () => {
