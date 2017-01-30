@@ -1,6 +1,8 @@
 'use strict';
 let env = process.env.NODE_ENV || 'development';
 console.log('****Working Environment is : ', env);
+console.log('****MONGO Environment is : ', process.env.MONGODB_URI);
+
 
 if (env ===  'development') {
     process.env.PORT = 3000;
