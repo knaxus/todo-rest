@@ -66,6 +66,7 @@ app.post('/todos', authenticate, (req, res) => {
     }, (err) => {
         // send the error as a response
         res.status(400).send(err);
+        return console.log(err);
     });
 });
 
@@ -207,13 +208,15 @@ app.post('/users', (req, res) => {
         res.status(400).send({
             error : 'error occured',
             status : 400
-        })
-    })
+        });
+        return console.log(err);        
+    });
 });
 
 // GET users/me route, using the token header
 app.get('/users/me', authenticate, (req, res) => {
-    res.status(200).send(req.user)
+    res.status(200).send(req.user);
+    return console.log(err);    
 });
 
 // login route
@@ -227,6 +230,7 @@ app.post('/users/login', (req, res) => {
         });
     }).catch((err) => {
         res.status(400).send({err, status: 400});
+        return console.log(err);        
     });
 });
 
@@ -237,6 +241,7 @@ app.delete('/users/logout', authenticate, (req, res) => {
         res.status(200).send();
     }, () => {
         res.status(400).send();
+        return console.log(err);        
     });
 });
 
