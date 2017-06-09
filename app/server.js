@@ -56,6 +56,8 @@ app.get('/todos', authenticate, (req, res) => {
 
 // create a POST /todos route 
 app.post('/todos', authenticate, (req, res) => {
+    // log req body 
+    console.log(req.body);
     // make a todo and save it into the database
     let todo = new Todo({
         text : req.body.text,
