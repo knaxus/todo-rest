@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 
 app.use(cors());
 app.use(function(req, res, next){
-    res.setHeader('Access-Control-Expose-Headers: X-Powered-By, X-Auth');
+    res.setHeader('Access-Control-Expose-Headers','X-Powered-By, X-Auth');
     next();
 });
 
