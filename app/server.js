@@ -13,7 +13,9 @@ const {authenticate}    = require('./middlewares/authenticate');
 let port = process.env.PORT || 3000;
 
 // the body-parser middleware
+app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
+
 
 // Add headers for cros
 app.use(function (req, res, next) {
