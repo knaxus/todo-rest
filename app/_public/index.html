@@ -3,61 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <title>Todo REST API | AshokDey</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:300,400,500,900" rel="stylesheet">
+    <link href="/img/favicon.png" rel="icon"  type="image/x-icon">    
+    <link href="https://fonts.googleapis.com/css?family=Abel|Lobster|Pacifico|Shadows+Into+Light" rel="stylesheet">
+    <script src="https://use.fontawesome.com/49abe66264.js"></script>
     <style>
         body {
             text-align: center;
-            background: lightyellow;
+            background: #ecf0f1;
         }
 
         h1 {
-            font-size: 3em;
-            font-family: 'Open Sans', sans-serif;
+            margin-top: 100px;
+            font-size: 5em;
+            font-family: 'Lobster', cursive;
             font-weight: 900;
-            color: darkorange;
+            color:#c0392b;
+            text-shadow: 2px 2px #2c3e50;
+        }
+
+        h3 {
+            margin-top: 50px;
+            font-size: 3em;
+            font-family: 'Pacifico', cursive;
+            font-weight: 900;
+            color:#2c3e50;
+            text-shadow: 1px 1px #3498db;
         }
 
         ul {
             text-align: left;
             width: 40%;
             margin: 0 auto;
+            margin-left: 38%;
             font-size: 1.8em;
-            font-family: 'Roboto', sans-serif;
-            padding-top:7%;
+            font-family: 'Abel', sans-serif;
+            padding-top:3%;
         }
 
         .bold {
             font-weight: 900;
-            font-family: 'Roboto', sans-serif;            
+            font-family: 'Abel', sans-serif;          
+        }
+
+        a {
+            text-decoration: none;
+            color: #c0392b;
+            text-shadow: 1px 1px #c0392b;   
+            font-size: 1.5em;         
         }
 
         .foot {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Shadows Into Light', cursive;
             font-weight: bold;    
-            color: mediumvioletred;        
+            font-size: 1.5em;
+            color: #34495e;        
         }
     </style>
 </head>
 <body>
     <h1>Todo REST API</h1>
-
+    <h3>Why will you need this API?</h3>
     <ul>
-        <li>Create a new todo : <span class="bold">POST /todos</span></li>
-        <li>Fetch all todos : <span class="bold">GET /todos</span></li>
-        <li>Get todos by ID : <span class="bold">GET /todos/id</span></li>
-        <li>Create a user : <span class="bold">POST /users</span></li>
-        <li>Login the user : <span class="bold">POST /users/login</span></li>
-        <li>Logoff the user : <span class="bold">POST /users/logout</span></li>
+        <li>Ready made  <span class="bold">REST API</span></li>
+        <li>Token Based Authentication using <span class="bold">JWT</span></li>
+        <li>Made using <span class="bold">Node, Express + Mongo</span></li>
+        <li>OpenSource under <span class="bold">MIT</span> license</li>
+        <li>Support for <span class="bold">User Profile</span></li>
+        <li>Best for Learning to build <span class="bold">Frontends, Mobile Apps </span>and more...</li>
     </ul>
     <br><br>
     <br>
     <br>
+    <hr style="width:55%; height:2px; color:#34495e;">
     <p class="foot">
-        Made using NodeJS, MongoDB and Express by <a href="http://ashokdey.in" target="_blank">Ashok Dey</a>
-    </p>
-    <br>
-    <p class="foot">
-        Get the source code from <a href="https://github.com/ashokdey/LearningNode/tree/master/mongo-rest-api">Github</a>
+        <i class="fa fa-file-code-o fa-2x" aria-hidden="true"></i><a href="https://github.com/ashokdey/LearningNode/tree/master/mongo-rest-api"> SourceCode </a> 
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <i class="fa fa-file-text fa-2x" aria-hidden="true"></i><a href="https://github.com/ashokdey/LearningNode/wiki"> Documentation </a> 
     </p>
 </body>
 </html>

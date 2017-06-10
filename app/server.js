@@ -4,6 +4,8 @@ const _             = require('lodash');
 const app           = require('express')();
 const bodyParser    = require('body-parser');
 const cors          = require('cors');
+const favicon       = require('serve-favicon');
+
 
 const {ObjectID}        = require('mongodb');
 const {mongoose}        = require('./db/mongoose');
@@ -23,6 +25,9 @@ app.use(function(req, res, next){
     res.setHeader('Access-Control-Expose-Headers','X-Powered-By, X-Auth');
     next();
 });
+
+// use the favicon
+app.use(favicon(__dirname + '/_public/img/favicon.png'));
 
 
 app.get('/', (req, res) => {

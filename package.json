@@ -23,6 +23,7 @@
     "lodash": "^4.17.4",
     "mongodb": "^2.2.21",
     "mongoose": "^4.7.7",
+    "serve-favicon": "^2.4.3",
     "validator": "^6.2.1"
   },
   "devDependencies": {
