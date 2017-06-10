@@ -9,7 +9,7 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": "6.2.2"
+    "node": "8.0.0"
   },
   "author": "Ashok Dey",
   "license": "MIT",
