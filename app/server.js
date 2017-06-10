@@ -192,15 +192,14 @@ app.post('/users', (req, res) => {
         return user.generateAuthToken();
 
     }).then((token) => {
-        res.header('x-auth', token).send({user});
+        return res.header('x-auth', token).status(201).json({user});
         //console.log('User signup successful');
 
     }).catch((err) => {
         //console.log('error : ', err);        
         // send the error
         res.status(400).send({
-            error : 'error occured',
-            status : 400
+            error : 'error occured'
         });
         return console.log(err);        
     });
@@ -208,7 +207,7 @@ app.post('/users', (req, res) => {
 
 // GET users/me route, using the token header
 app.get('/users/me', authenticate, (req, res) => {
-    res.status(200).send(req.user);
+    res.status(200).json({user : req.user});
     return console.log(err);    
 });
 
@@ -219,10 +218,10 @@ app.post('/users/login', (req, res) => {
     // search for the user in using the email
     User.findByCredentials(userData.email, userData.password).then((user) => {
         return user.generateAuthToken().then((token) => {
-            res.header('x-auth', token).send(user);
+            return res.header('x-auth', token).status(200).json({user});
         });
     }).catch((err) => {
-        res.status(400).send({err, status: 400});
+        res.status(500).json({err});
         return console.log(err);        
     });
 });
@@ -231,9 +230,9 @@ app.post('/users/login', (req, res) => {
 
 app.delete('/users/logout', authenticate, (req, res) => {
     req.user.removeToken(req.token).then(() => {
-        res.status(200).send();
-    }, () => {
-        res.status(400).send();
+        returnres.status(204).json({message : 'logout successsful'});
+    }, (err) => {
+        res.status(500).json({message : 'something broke'});
         return console.log(err);        
     });
 });
