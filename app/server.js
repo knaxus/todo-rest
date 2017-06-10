@@ -19,14 +19,15 @@ app.use(bodyParser.json());
 
 app.use(cors());
 app.use(function(req, res, next){
+    // Expose the custom headers so that browser can allow to use it
     res.setHeader('Access-Control-Expose-Headers','X-Powered-By, X-Auth');
     next();
 });
 
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/_public/index.html');
-})
+    return res.sendFile(__dirname + '/_public/index.html');
+});
 
 // create a GET /todos route
 app.get('/todos', authenticate, (req, res) => {
@@ -34,9 +35,11 @@ app.get('/todos', authenticate, (req, res) => {
     Todo.find({
         _creator : req.user._id
     }).then((data) => {
-        res.send({data});
+        return res.status(200).json({data});
     }, (err) => {
-        res.status(400).send(err);
+        return res.status(500).json({
+            message : 'something broke'
+        });
     });
 });
 
@@ -52,10 +55,12 @@ app.post('/todos', authenticate, (req, res) => {
 
     todo.save().then((data) => {
         // send the todo as a response
-        res.send(data);
+        return res.status(201).send(data);
     }, (err) => {
         // send the error as a response
-        res.status(400).send(err);
+        res.status(500).json({
+            message : 'something broke'
+        });
         return console.log(err);
     });
 });
@@ -68,9 +73,8 @@ app.get('/todos/:id', authenticate,  (req, res) => {
     // if the ID is valid not valid, send a message
     if (!ObjectID.isValid(todoID)) {
         //console.log('Invalid todo ID');
-        return res.status(400).send({
-            message : 'InvalidID',
-            status : 400
+        return res.status(400).json({
+            message : 'invalid id'
         });
     }
     // search for todo with the todo id and the creator
@@ -80,19 +84,18 @@ app.get('/todos/:id', authenticate,  (req, res) => {
         _creator : req.user._id
     }).then((data) => {
         if (!data) {
-            return res.status(404).send({
-                message : 'Todo not found',
-                status : 404
+            return res.status(404).json({
+                message : 'Todo not found'
             });
         }
 
-        res.status(200).send({
-            todo : data, 
-            status : 200
+        return res.status(200).json({
+            todo : data
         });
 
     }).catch((err) => {
-        res.sendStatus(400).send({err});
+        console.log(err);
+        return res.sendStatus(404).json({message : 'todo not found'});
         //console.log('todoId not found');
     });
 });
