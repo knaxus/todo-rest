@@ -242,10 +242,6 @@ app.delete('/users/logout', authenticate, (req, res) => {
     });
 });
 
-// Listen to the port 
-app.listen(port, () => {
-    console.log('server listening at port : ' + port);
-});
 
 
 module.exports = {app};
