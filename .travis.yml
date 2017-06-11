@@ -3,3 +3,11 @@ node_js:
   - "8.0"
 services:
 - mongodb
+
+addons:
+  code_climate:
+    repo_token: f10eb831da39edc39558fe5a30bc9234d5d8768d2fa7135b59b1f2f5e6dea5e8
+    
+after_success:
+  - npm install -g codeclimate-test-reporter
+  - codeclimate-test-reporter < lcov.info
