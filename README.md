@@ -1,16 +1,15 @@
 # To-Do REST API
-![Build](https://travis-ci.org/ashokdey/todo-rest.svg?branch=master) [![Code Climate](https://codeclimate.com/github/ashokdey/todo-rest/badges/gpa.svg)](https://codeclimate.com/github/ashokdey/todo-rest) [![Test Coverage](https://codeclimate.com/github/ashokdey/todo-rest/badges/coverage.svg)](https://codeclimate.com/github/ashokdey/todo-rest/coverage) [![CocoaPods](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/ashokdey/todo-rest) [![David](https://img.shields.io/david/expressjs/express.svg)](https://github.com/ashokdey/todo-rest) [![David](https://img.shields.io/david/dev/expressjs/express.svg)](https://github.com/ashokdey/todo-rest) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ashokdey/todo-rest/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ashokdey/todo-rest/?branch=master)
+![Build](https://travis-ci.org/ashokdey/todo-rest.svg?branch=master) [![Code Climate](https://codeclimate.com/github/ashokdey/todo-rest/badges/gpa.svg)](https://codeclimate.com/github/ashokdey/todo-rest) [![Test Coverage](https://codeclimate.com/github/ashokdey/todo-rest/badges/coverage.svg)](https://codeclimate.com/github/ashokdey/todo-rest/coverage) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ashokdey/todo-rest/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ashokdey/todo-rest/?branch=master) [![CocoaPods](https://img.shields.io/cocoapods/l/AFNetworking.svg)](https://github.com/ashokdey/todo-rest) [![David](https://img.shields.io/david/expressjs/express.svg)](https://github.com/ashokdey/todo-rest) [![David](https://img.shields.io/david/dev/expressjs/express.svg)](https://github.com/ashokdey/todo-rest) 
 
 ## Usages 
-- Ready made REST API
+- Ready made **REST API**
 - Token Based Authentication using **JWT**
 - Made using **Node, Express + Mongo**
 - OpenSource, free to modify and change under **MIT license**
-- Support for User Profile [To be done]
+- ~~Support for User Profile~~ [will be added in v2]
 - Best for Learning to build **Frontends, Mobile Apps** and more...
 
-## Yet to be done
-
+## Pending
 - Documentation by **[AnkitDutta](https://github.com/cruxbreaker)**
 - Separating routes and adddition of new routes
 
