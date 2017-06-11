@@ -1,4 +1,4 @@
-# To-Do REST API ![Build](https://travis-ci.org/ashokdey/todo-rest.svg?branch=master) [![Code Climate](https://codeclimate.com/github/ashokdey/todo-rest/badges/gpa.svg)](https://codeclimate.com/github/ashokdey/todo-rest)
+# To-Do REST API ![Build](https://travis-ci.org/ashokdey/todo-rest.svg?branch=master) [![Code Climate](https://codeclimate.com/github/ashokdey/todo-rest/badges/gpa.svg)](https://codeclimate.com/github/ashokdey/todo-rest) [![Test Coverage](https://codeclimate.com/github/ashokdey/todo-rest/badges/coverage.svg)](https://codeclimate.com/github/ashokdey/todo-rest/coverage)
 
 ## Usages Ready made REST API
 - Token Based Authentication using **JWT**
