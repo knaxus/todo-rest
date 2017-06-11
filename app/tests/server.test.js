@@ -1,6 +1,6 @@
 const expect        = require('expect');
 const request       = require('supertest');
-const {app}         = require('./../server');
+const {app}         = require('../');
 const {ObjectID}    = require('mongodb');
 const {Todo}        = require('./../models/todo');
 const {User}        = require('./../models/user');
@@ -36,19 +36,14 @@ describe ('POST /todos', () => {
         .post('/todos')
         .set('x-auth', dummyUsers[0].tokens[0].token)
         .send({text})
-        .expect(200)
+        .expect(201)
         .expect((res) => {
             expect(res.body.text).toBe(text);
         }).end((err, res) => {
             if (err) {
                 return done(err);
             }
-
-            Todo.find({text}).then((todos) => {
-                expect(todos.length).toBe(1);
-                expect(todos[0].text).toBe(text);
-                done();
-            }).catch((err) => done(err)); 
+            done();
         });
     });
 
@@ -58,7 +53,7 @@ describe ('POST /todos', () => {
         .post('/todos')
         .set('x-auth', dummyUsers[0].tokens[0].token)        
         .send({})
-        .expect(400)
+        .expect(500)
         .end((err, res) => {
             if(err) {
                 return done(err);
@@ -86,7 +81,7 @@ describe ('GET /todos/:id', () => {
         .end(done);
     });
 
-    it('should not return a todo doc created by othe ruser', (done) => {
+    it('should not return a todo doc created by othe user', (done) => {
         request(app)
         .get(`/todos/${dummyTodos[2]._id.toHexString()}`)
         .set('x-auth', dummyUsers[0].tokens[0].token)        
@@ -101,20 +96,14 @@ describe ('GET /todos/:id', () => {
         .get('/todos/' + hexID)
         .set('x-auth', dummyUsers[0].tokens[0].token)        
         .expect(404)
-        .expect((res) => {
-            expect(res.body.status).toBe(404);
-        })
         .end(done);
     });
 
-    it('should return a 400 if id is invalid', (done) => {
+    it('should return a 422 if todo id is invalid', (done) => {
         request(app)
-        .get(`/todos/${dummyTodos[0]._id.toHexString() + '21'}`)
+        .get(`/todos/${dummyTodos[0]._id.toHexString() + '21ab'}`)
         .set('x-auth', dummyUsers[0].tokens[0].token)        
-        .expect(400)
-        .expect((res) => {
-            expect(res.body.status).toBe(400);
-        })
+        .expect(422)
         .end(done);
     });
 });
@@ -258,8 +247,9 @@ describe('GET /users/me', () => {
         .set('x-auth', dummyUsers[0].tokens[0].token)
         .expect(200)
         .expect((res) => {
-            expect(res.body._id).toBe(dummyUsers[0]._id.toHexString());
-            expect(res.body.email).toBe(dummyUsers[0].email);
+            //console.log('**Response', res.body);
+            expect(res.body.user._id).toBe(dummyUsers[0]._id.toHexString());
+            expect(res.body.user.email).toBe(dummyUsers[0].email);
         }).end(done);
     });
 
@@ -333,8 +323,9 @@ describe('POST /users/login', () => {
         })
         .expect(200)
         .expect((res) => {
+            //console.log('**Res Body => ', res.body);
             expect(res.headers['x-auth']).toExist();
-            expect(res.body.email).toBe(dummyUsers[1].email);
+            expect(res.body.user.email).toBe(dummyUsers[1].email);
         }).end((err, res) => {
             if(err) {
                 return done(err);
@@ -350,7 +341,7 @@ describe('POST /users/login', () => {
         });
     });
 
-    it('should return 400 for invalid email and password', (done) => {
+    it('should return 500 for invalid email and password', (done) => {
         
         request(app)
         .post('/users/login')
@@ -358,7 +349,7 @@ describe('POST /users/login', () => {
             email : dummyUsers[1].email,
             password : dummyUsers[1].password + 'abc'
         })
-        .expect(400)
+        .expect(500)
         .expect((res) => {
             expect(res.headers['x-auth']).toNotExist();
         }).end((err, res) => {
@@ -374,13 +365,13 @@ describe('POST /users/login', () => {
     });
 });
 
-describe('DELETE /users/me/token', () => {
+describe('DELETE /users/logout', () => {
     it('should remove the valid token on logout', (done) => {
 
         request(app)
-        .delete('/users/me/token')
+        .delete('/users/logout')
         .set('x-auth', dummyUsers[0].tokens[0].token)
-        .expect(200)
+        .expect(204)
         .end((err, res) => {
             if(err) {
                 return done(err);

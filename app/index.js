@@ -13,11 +13,10 @@ const {Todo}            = require('./models/todo');
 const {User}            = require('./models/user');
 const {authenticate}    = require('./middlewares/authenticate');
 
-let port = process.env.PORT || 3000;
 
 // the body-parser middleware
-app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({extended : false}));
 
 app.use(cors());
 app.use(function(req, res, next){
@@ -51,22 +50,24 @@ app.get('/todos', authenticate, (req, res) => {
 // create a POST /todos route 
 app.post('/todos', authenticate, (req, res) => {
     // log req body 
-    console.log(req.body);
+    //console.log('**Req Body => ', req.body);
     // make a todo and save it into the database
     let todo = new Todo({
         text : req.body.text,
         _creator : req.user._id
     });
 
+    //console.log('**Todo =>', todo)
+
     todo.save().then((data) => {
         // send the todo as a response
         return res.status(201).send(data);
     }, (err) => {
+        console.log('Error : ', err._message);
         // send the error as a response
-        res.status(500).json({
+        return res.status(500).json({
             message : 'something broke'
         });
-        return console.log(err);
     });
 });
 
@@ -78,7 +79,8 @@ app.get('/todos/:id', authenticate,  (req, res) => {
     // if the ID is valid not valid, send a message
     if (!ObjectID.isValid(todoID)) {
         //console.log('Invalid todo ID');
-        return res.status(400).json({
+        //console.log('Error : 422 : Invalid Todo ID');
+        return res.status(422).json({
             message : 'invalid id'
         });
     }
@@ -89,18 +91,22 @@ app.get('/todos/:id', authenticate,  (req, res) => {
         _creator : req.user._id
     }).then((data) => {
         if (!data) {
+            //console.log('Error : 404 : Todo ID Not Found');            
             return res.status(404).json({
-                message : 'Todo not found'
+                message : 'todo not found'
             });
         }
-
+        
         return res.status(200).json({
             todo : data
         });
 
     }).catch((err) => {
         console.log(err);
-        return res.sendStatus(404).json({message : 'todo not found'});
+        //console.log('Error : 500 : Something broke');
+        return res.status(500).json({
+            message : 'todo not found'
+        });
         //console.log('todoId not found');
     });
 });
@@ -206,13 +212,15 @@ app.post('/users', (req, res) => {
         res.status(400).send({
             error : 'error occured'
         });
-        return console.log(err);        
+        return console.log(err._message);        
     });
 });
 
 // GET users/me route, using the token header
 app.get('/users/me', authenticate, (req, res) => {
-    res.status(200).json({user : req.user});
+    res.status(200).json({
+        user : req.user
+    });
     return console.log(err);    
 });
 
@@ -235,7 +243,7 @@ app.post('/users/login', (req, res) => {
 
 app.delete('/users/logout', authenticate, (req, res) => {
     req.user.removeToken(req.token).then(() => {
-        returnres.status(204).json({message : 'logout successsful'});
+        return res.status(204).json({message : 'logout successsful'});
     }, (err) => {
         res.status(500).json({message : 'something broke'});
         return console.log(err);        
